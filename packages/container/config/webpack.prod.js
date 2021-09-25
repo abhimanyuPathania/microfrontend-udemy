@@ -5,8 +5,6 @@ const packageJson = require("../package.json");
 
 // Domain on which the entire application is hosted. Currently the Cloudfront domain.
 const PRODUCTION_DOMAIN = process.env.PRODUCTION_DOMAIN;
-console.log(">>>>>>>>>>>>> PRODUCTION_DOMAIN", PRODUCTION_DOMAIN);
-console.log(`marketing@${PRODUCTION_DOMAIN}/marketing/latest/remoteEntry.js`);
 const prodConfig = {
   mode: "production",
   output: {
