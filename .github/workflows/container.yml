@@ -32,6 +32,9 @@ jobs:
       - name: Copy files S3 with the AWS CLI
         run: |
           aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
+      - name: Invalidate container index html
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/container/latest/index.html"
 
       # - uses: chrislennon/action-aws-cli@v1.1
       # - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
