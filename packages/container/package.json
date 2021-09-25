@@ -2,14 +2,17 @@
   "name": "container",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack serve --config config/webpack.dev.js"
+    "start": "webpack serve --config config/webpack.dev.js",
+    "clean": "rimraf dist",
+    "build": "npm run clean && webpack --config config/webpack.prod.js"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
