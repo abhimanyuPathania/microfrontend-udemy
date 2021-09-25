@@ -5,7 +5,8 @@ on:
     branches:
       - master
     paths:
-      - 'packages/container/**'
+      - "packages/container/**"
+      - ".github/workflows/container.yml"
 
 defaults:
   run:
@@ -18,8 +19,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build Web App
+      - name: Install dependencies
         run: npm install
+      - name: Build Web App
         run: npm run build
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v1
