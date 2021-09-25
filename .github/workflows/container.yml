@@ -24,6 +24,8 @@ jobs:
         run: npm install
       - name: Build Container application
         run: npm run build
+        env:
+          PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
       - name: Configure AWS credentials for IAM user
         uses: aws-actions/configure-aws-credentials@v1
         with:
