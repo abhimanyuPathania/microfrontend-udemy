@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - "packages/container/**"
+      # force re-run on updating workflows/container.yml
       - ".github/workflows/container.yml"
 
 defaults:
@@ -23,7 +24,7 @@ jobs:
         run: npm install
       - name: Build Web App
         run: npm run build
-      - name: Configure AWS credentials from Test account
+      - name: Configure AWS credentials from IAM user
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -35,9 +36,3 @@ jobs:
       - name: Invalidate container index html
         run: |
           aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/container/latest/index.html"
-
-      # - uses: chrislennon/action-aws-cli@v1.1
-      # - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/container/latest
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
