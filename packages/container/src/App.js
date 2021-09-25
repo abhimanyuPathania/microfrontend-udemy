@@ -4,7 +4,7 @@ import MarketingWrapper from "./components/MarketingWrapper";
 export default function App() {
   return (
     <div>
-      <h1>container</h1>
+      <h2>container</h2>
       <MarketingWrapper />
     </div>
   );
