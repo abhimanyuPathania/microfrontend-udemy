@@ -11,6 +11,7 @@ export const mount = (el, { onNavigation }) => {
   });
 
   if (onNavigation) memoryHistory.listen(onNavigation);
+
   ReactDOM.render(<App history={memoryHistory} />, el);
   // Object exposed to container
   return {
