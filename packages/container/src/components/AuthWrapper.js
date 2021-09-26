@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 import { mount as mountAuth } from "auth/AuthApp";
 import { syncNavigation, shouldSyncNavigation } from "../../../common/utilties";
 
-export default function MarketingWrapper() {
+export default function MarketingWrapper(props) {
+  const { onSignIn } = props;
   const ref = useRef(null);
   // container's history object
   const history = useHistory();
@@ -21,6 +22,7 @@ export default function MarketingWrapper() {
           });
         }
       },
+      onSignIn,
     });
 
     if (onParentNavigation) history.listen(onParentNavigation);

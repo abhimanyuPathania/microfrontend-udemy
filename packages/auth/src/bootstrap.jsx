@@ -5,7 +5,7 @@ import { createMemoryHistory } from "history";
 import { syncNavigation, shouldSyncNavigation } from "../../common/utilties";
 import App from "./App";
 
-export const mount = (el, { onNavigation, defaultHistory }) => {
+export const mount = (el, { onNavigation, defaultHistory, onSignIn }) => {
   const memoryHistory = createMemoryHistory({
     initialEntries: [window.location.pathname],
   });
@@ -14,7 +14,7 @@ export const mount = (el, { onNavigation, defaultHistory }) => {
   if (onNavigation) history.listen(onNavigation);
 
   // defaultHistory is the BrowserHitsory injected when running in isolation
-  ReactDOM.render(<App history={history} />, el);
+  ReactDOM.render(<App history={history} onSignIn={onSignIn} />, el);
   // Object exposed to container
   return {
     onParentNavigation: (location, method) => {
