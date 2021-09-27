@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { mount as mountAuth } from "auth/AuthApp";
 import { syncNavigation, shouldSyncNavigation } from "../../../common/utilties";
 
-export default function MarketingWrapper(props) {
+export default function AuthWrapper(props) {
   const { onSignIn } = props;
   const ref = useRef(null);
   // container's history object

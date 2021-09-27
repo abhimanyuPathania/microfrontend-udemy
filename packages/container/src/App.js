@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import Progress from "./components/Progress";
 const MarketingWrapper = lazy(() => import("./components/MarketingWrapper"));
 const AuthWrapper = lazy(() => import("./components/AuthWrapper"));
+const DashboardWrapper = lazy(() => import("./components/DashboardWrapper"));
 
 const generateClassName = createGenerateClassName({
   productionPrefix: "cointainer",
@@ -29,6 +30,9 @@ export default function App() {
             <Switch>
               <Route path="/auth">
                 <AuthWrapper onSignIn={() => setIsSignedIn(true)} />
+              </Route>
+              <Route path="/dashboard">
+                <DashboardWrapper />
               </Route>
               <Route path="/" component={MarketingWrapper} />
             </Switch>
