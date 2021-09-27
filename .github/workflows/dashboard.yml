@@ -1,0 +1,38 @@
+name: deploy-dashboard
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/dashboard/**"
+      # force re-run on updating workflows/dashboard.yml
+      - ".github/workflows/dashboard.yml"
+
+defaults:
+  run:
+    working-directory: packages/dashboard
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install NPM dependencies
+        run: npm install
+      - name: Build dashboard application
+        run: npm run build
+      - name: Configure AWS credentials for IAM user
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+      - name: Copy built files to S3
+        run: |
+          aws s3 sync --delete dist s3://${{ secrets.AWS_S3_BUCKET_NAME }}/dashboard/latest
+      - name: Invalidate dashboard remoteEntry.js from Cloudfront
+        run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/dashboard/latest/remoteEntry.js"
