@@ -1,5 +1,6 @@
-import React, { lazy, Suspense, useState } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React, { lazy, Suspense, useState, useEffect } from "react";
+import { Switch, Route, Redirect, Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import {
   StylesProvider,
   createGenerateClassName,
@@ -14,13 +15,20 @@ const DashboardWrapper = lazy(() => import("./components/DashboardWrapper"));
 const generateClassName = createGenerateClassName({
   productionPrefix: "cointainer",
 });
+const history = createBrowserHistory();
 
 export default function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
 
+  useEffect(() => {
+    if (isSignedIn) {
+      history.push("/dashboard");
+    }
+  }, [isSignedIn]);
+
   return (
     <StylesProvider generateClassName={generateClassName}>
-      <BrowserRouter>
+      <Router history={history}>
         <div>
           <Header
             signedIn={isSignedIn}
@@ -32,13 +40,14 @@ export default function App() {
                 <AuthWrapper onSignIn={() => setIsSignedIn(true)} />
               </Route>
               <Route path="/dashboard">
+                {!isSignedIn && <Redirect to="/" />}
                 <DashboardWrapper />
               </Route>
               <Route path="/" component={MarketingWrapper} />
             </Switch>
           </Suspense>
         </div>
-      </BrowserRouter>
+      </Router>
     </StylesProvider>
   );
 }
