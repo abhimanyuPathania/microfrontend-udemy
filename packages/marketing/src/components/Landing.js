@@ -79,7 +79,7 @@ export default function Album() {
               color="textPrimary"
               gutterBottom
             >
-              Home Page
+              Micro Frontends
             </Typography>
             <Typography
               variant="h5"
@@ -114,12 +114,14 @@ export default function Album() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {cards.map((card, i) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
+                    image={`https://source.unsplash.com/random/400x300?sig=${
+                      i + 1
+                    }`}
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
