@@ -30,6 +30,7 @@ https://d31k9orm4ctsz0.cloudfront.net/
 ### Bad parts
 
 - Front end routing is a hard. In course, the instructor setups a syncing scheme between container and `React` micro frontend routers. But the same won't work for the `Vue` dashboard app. In course the `Vue` dashboard app does not has any internal routing.
+- The route syncing by instructor in course only used `history.push` no matter what action is performed. Trying to write an exact utility to sync histories, we run into `POP` action on `goBack` and `goForward` issue. Not sure if `history.push` is good enough or works for this simple usecase. Also, there was no consideration for route query params and hashes.
 - Local dev env is more complicated. Have to keep running all micro frontend webpack dev servers running in order to develop contianer.
   Will easily become impractical as we add more micro apps.
 - `webpack` is hard dependency.
@@ -41,3 +42,4 @@ https://d31k9orm4ctsz0.cloudfront.net/
 - Look into more frontend routing solutions.
 - Style using CSS modules rather than depending on CSS in JS solution.
 - Integrate a backend service.
+- Figure out versions and variants scheme for micro frontends
